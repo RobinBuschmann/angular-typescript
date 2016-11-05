@@ -22,34 +22,34 @@ function Service(module: ng.IModule, serviceName?: string): at.IClassAnnotationD
 function Service(moduleName: string, serviceName?: string): at.IClassAnnotationDecorator {}
 ```
 #### Example
-```
+```typescript
 @Service(appModule)
 class BlogService {}
 ```
 #### Comparison to plain angular
 
 *Annotation version*
-```
+```typescript
 @Service(appModule)
 class BlogService {}
 ```
 *Angular 1*
-```
+```typescript
 class BlogService {}
 appModule.service('<generated-name>', BlogService);
 ```
 
 ### Inject
 This annotation tells angular, what dependencies should have been injected into the annotated class.
-```
+```typescript
 /**
  * @param {Array<string|Function>} args Dependencies to inject. Therefor the dependencies can be named via
  *                                      string value or the class itself can passed.
  */
-Inject(...args: Array<string|Function>): IClassAnnotationDecorator
+function Inject(...args: Array<string|Function>): IClassAnnotationDecorator {}
 ```
 #### Example
-```
+```typescript
 @Service(appModule)
 @Inject('$http', BlogService)
 class CommentService{
@@ -64,7 +64,7 @@ The Inject annotation adds the static property `$inject` to the class (construct
 http://stackoverflow.com/a/18699425
 
 ### Components
-```
+```typescript
 /**
  * @param {object}      options                     Component options.
  * @param {string}      options.componentName       Name of component. Should defined in camel case. 
@@ -78,7 +78,7 @@ http://stackoverflow.com/a/18699425
  * @param {string}      [options.controllerAs=vm]   Name of property, which is available in the template
                                                     and is referencing the component controller instance.
  */
-Component(options: IComponentOptions): IClassAnnotationDecorator
+function Component(options: IComponentOptions): IClassAnnotationDecorator {}
 ```
 
 ## Why auto generated service names?
