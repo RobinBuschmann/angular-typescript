@@ -12,14 +12,14 @@ defined name or an auto generated name. This service will be a singleton during 
  * @param {string}      [serviceName]               Name of service. If not set, a unique name will generated 
  *                                                  automatically.
  */
-Service(module: ng.IModule, serviceName?: string): IClassAnnotationDecorator
+function Service(module: ng.IModule, serviceName?: string): at.IClassAnnotationDecorator {}
 
 /**
  * @param {string}      moduleName                  Name of angular module the service belongs to.
  * @param {string}      [serviceName]               Name of service. If not set, a unique name will generated 
  *                                                  automatically.
  */
-Service(moduleName: string, serviceName?: string): IClassAnnotationDecorator
+function Service(moduleName: string, serviceName?: string): at.IClassAnnotationDecorator {}
 ```
 #### Example
 ```
