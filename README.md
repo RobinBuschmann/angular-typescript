@@ -64,6 +64,9 @@ The Inject annotation adds the static property `$inject` to the class (construct
 http://stackoverflow.com/a/18699425
 
 ### Components
+This annotation registers a component with the defined name for the entire application. The component can be used
+in every template.
+#### Class annotation
 ```typescript
 /**
  * @param {object}      options                     Component options.
@@ -79,6 +82,39 @@ http://stackoverflow.com/a/18699425
                                                     and is referencing the component controller instance.
  */
 function Component(options: IComponentOptions): IClassAnnotationDecorator {}
+```
+#### Property and function annotations
+```typescript
+/**
+ * @param {object}      options                     Component options.
+ * @param {string}      options.componentName       Name of component. Should defined in camel case. 
+                                                    Angular will convert it automatically to dash-case. 
+ * @param {ng.IModule}  [options.module]            Angular module the component belongs to.
+ * @param {string}      [options.moduleName]        Name of angular module the component belongs to
+ * @param {string}      [options.template]          HTML template.
+ * @param {string}      [options.templateUrl]       Url to HTML template.
+ * @param {Array}       [options.directives]        Dependent directives (dummy, see Directive option).
+ * @param {boolean}     [options.transclude=false]  Indicates if a template can be passed or not.
+ * @param {string}      [options.controllerAs=vm]   Name of property, which is available in the template
+                                                    and is referencing the component controller instance.
+ */
+function Attribute(options: IComponentOptions): IClassAnnotationDecorator {}
+```
+#### Example
+```typescript
+@Component({
+    module: appModule,
+    componentName: 'userAvatar',
+    template: `
+        
+    `
+})
+class UserAvatarComponent{
+
+    constructor() {
+        
+    }
+}
 ```
 
 ## Why auto generated service names?
