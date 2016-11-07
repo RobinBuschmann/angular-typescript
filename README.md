@@ -1,9 +1,7 @@
 #angular-typescript
 
 
-## How to
-
-### Services
+## Services
 The Service annotation tells angular, that the annotated class is injectable and registers it as a dependency with a
 defined name or an auto generated name. This service will be a singleton during the app lifecyle.
 ```typescript
@@ -12,14 +10,14 @@ defined name or an auto generated name. This service will be a singleton during 
  * @param {string}      [serviceName]               Name of service. If not set, a unique name will generated 
  *                                                  automatically.
  */
-function Service(module: ng.IModule, serviceName?: string): at.IClassAnnotationDecorator {}
+function Service(module: ng.IModule, serviceName?: string) {}
 
 /**
  * @param {string}      moduleName                  Name of angular module the service belongs to.
  * @param {string}      [serviceName]               Name of service. If not set, a unique name will generated 
  *                                                  automatically.
  */
-function Service(moduleName: string, serviceName?: string): at.IClassAnnotationDecorator {}
+function Service(moduleName: string, serviceName?: string) {}
 ```
 #### Example
 ```typescript
@@ -27,26 +25,19 @@ function Service(moduleName: string, serviceName?: string): at.IClassAnnotationD
 class BlogService {}
 ```
 #### Comparison to plain angular
-
-*Annotation version*
-```typescript
-@Service(appModule)
-class BlogService {}
-```
-*Angular 1*
 ```typescript
 class BlogService {}
 appModule.service('<generated-name>', BlogService);
 ```
 
-### Inject
+## Injection
 This annotation tells angular, what dependencies should have been injected into the annotated class.
 ```typescript
 /**
  * @param {Array<string|Function>} args Dependencies to inject. Therefor the dependencies can be named via
  *                                      string value or the class itself can passed.
  */
-function Inject(...args: Array<string|Function>): IClassAnnotationDecorator {}
+function Inject(...args: Array<string|Function>) {}
 ```
 #### Example
 ```typescript
@@ -63,10 +54,11 @@ class CommentService{
 The Inject annotation adds the static property `$inject` to the class (constructor function). Why to use this? Check
 http://stackoverflow.com/a/18699425
 
-### Components
+## Components
+With angular-typescript you're able to create components the angular 2 way.
+#### Component (class annotation)
 This annotation registers a component with the defined name for the entire application. The component can be used
 in every template.
-#### Class annotation
 ```typescript
 /**
  * @param {object}      options                     Component options.
@@ -81,24 +73,35 @@ in every template.
  * @param {string}      [options.controllerAs=vm]   Name of property, which is available in the template
                                                     and is referencing the component controller instance.
  */
-function Component(options: IComponentOptions): IClassAnnotationDecorator {}
+function Component(options: IComponentOptions) {}
 ```
-#### Property and function annotations
+#### Attribute (property annotation)
+This is a property annotation for component annotated classes. With attribute annotations you can define
+attributes for the corresponding component. 
 ```typescript
 /**
- * @param {object}      options                     Component options.
- * @param {string}      options.componentName       Name of component. Should defined in camel case. 
-                                                    Angular will convert it automatically to dash-case. 
- * @param {ng.IModule}  [options.module]            Angular module the component belongs to.
- * @param {string}      [options.moduleName]        Name of angular module the component belongs to
- * @param {string}      [options.template]          HTML template.
- * @param {string}      [options.templateUrl]       Url to HTML template.
- * @param {Array}       [options.directives]        Dependent directives (dummy, see Directive option).
- * @param {boolean}     [options.transclude=false]  Indicates if a template can be passed or not.
- * @param {string}      [options.controllerAs=vm]   Name of property, which is available in the template
-                                                    and is referencing the component controller instance.
+ * @param {object}      options                         Attribute options.
+ * @param {string}      [options.binding='=']           Defines how the property should be bound to the
+ *                                                      component instance.
+ * @param {string}      [options.name=<property name>]  Alternate name of attribute, which sould be used
+ *                                                      in the template. Default is the property name.  
+ * @param {boolean}     [options.isOptional]            Defines whether this property is optional or not.
  */
-function Attribute(options: IComponentOptions): IClassAnnotationDecorator {}
+function Attribute(options: IAttributeOptions) {}
+```
+#### Input (property annotation)
+This is a property annotation for component annotated classes. With attribute annotations you can define
+attributes for the corresponding component.
+```typescript
+/**
+ * @param {object}      options                         Attribute options.
+ * @param {string}      [options.binding='=']           Defines how the property should be bound to the
+ *                                                      component instance.
+ * @param {string}      [options.name=<property name>]  Alternate name of attribute, which sould be used
+ *                                                      in the template. Default is the property name.  
+ * @param {boolean}     [options.isOptional]            Defines whether this property is optional or not.
+ */
+function Attribute(options: IAttributeOptions) {}
 ```
 #### Example
 ```typescript
